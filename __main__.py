@@ -1,8 +1,8 @@
 import dash
 from dash import Dash, dcc, html, Output, Input, State, get_asset_url
 # Protect routes
-from flask_login.utils import login_required
-from flask_login import current_user
+#from flask_login.utils import login_required
+#from flask_login import current_user
 
 
 def create_dash_application(flask_app, local=False):
@@ -10,11 +10,23 @@ def create_dash_application(flask_app, local=False):
     # If local the app is being run for local development!! (no relative imports)
     if local:
         from utils.components import MainSideBarAIO, SubmitButtonComponentAIO
+        import dash_auth
+
+        VALID_USERNAME_PASSWORD_PAIRS = {
+            'hello': 'world'
+        }
+
+
         dash_app = dash.Dash(
             __name__,
             use_pages=True,
             pages_folder='utils', 
             prevent_initial_callbacks=True,)
+        
+        auth = dash_auth.BasicAuth(
+            dash_app,
+            VALID_USERNAME_PASSWORD_PAIRS
+        )
     
     else:
         from .utils.components import MainSideBarAIO, SubmitButtonComponentAIO
@@ -107,25 +119,25 @@ def create_dash_application(flask_app, local=False):
         return '/logout'
 
 
-    # Callback for displaying the name of the logged user!!
-    @dash_app.callback(
-        Output('user_logged', 'children'),
-        Input('logout_location', 'href'),
-    )
-    def check_user_logged(x):
-        try:
-            return f'###### Hello {current_user.email}'
-        except:
-            return ''
+    # # Callback for displaying the name of the logged user!!
+    # @dash_app.callback(
+    #     Output('user_logged', 'children'),
+    #     Input('logout_location', 'href'),
+    # )
+    # def check_user_logged(x):
+    #     try:
+    #         return f'###### Hello {current_user.email}'
+    #     except:
+    #         return ''
     
     
 
-    # Code to protect all routes inside dash app!!! (only needed if running inside flask)
-    if not local:
-        for view_function in dash_app.server.view_functions:
-            # If it has 'app' in front of it
-            if view_function.startswith(dash_app.config.url_base_pathname):
-                dash_app.server.view_functions[view_function] = login_required(dash_app.server.view_functions[view_function])
+    # # Code to protect all routes inside dash app!!! (only needed if running inside flask)
+    # if not local:
+    #     for view_function in dash_app.server.view_functions:
+    #         # If it has 'app' in front of it
+    #         if view_function.startswith(dash_app.config.url_base_pathname):
+    #             dash_app.server.view_functions[view_function] = login_required(dash_app.server.view_functions[view_function])
 
     return dash_app
 
