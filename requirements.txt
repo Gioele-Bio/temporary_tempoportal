@@ -1,4 +1,4 @@
-alembic==1.8.1
+alembic
 appnope==0.1.3
 asttokens==2.2.1
 async-timeout==4.0.2
