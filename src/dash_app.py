@@ -63,7 +63,7 @@ def create_dash_application(flask_app, local=False):
                     # Markdown to show the email of the user logged in
                     dcc.Markdown(id='user_logged'),
                     #Button and location for logout
-                    SubmitButtonComponentAIO('Logout', background_color='red', aio_id='logout_btn', size='s'),
+                    #SubmitButtonComponentAIO('Logout', background_color='red', aio_id='logout_btn', size='s'),
                     dcc.Location(id='logout_location')
                 ],
                 id='pageHeader',
@@ -110,13 +110,13 @@ def create_dash_application(flask_app, local=False):
             return 'checked', 'checkedDiv', {'width':'15%'}, {'marginLeft':'15%'}
 
     
-    # Callback for logging out!
-    @dash_app.callback(
-        Output('logout_location', 'href'),
-        Input(SubmitButtonComponentAIO.ids.button('logout_btn'), 'n_clicks')
-    )
-    def logout(click):
-        return '/logout'
+    # # Callback for logging out!
+    # @dash_app.callback(
+    #     Output('logout_location', 'href'),
+    #     Input(SubmitButtonComponentAIO.ids.button('logout_btn'), 'n_clicks')
+    # )
+    # def logout(click):
+    #     return '/logout'
 
 
     # # Callback for displaying the name of the logged user!!
