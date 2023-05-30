@@ -1,18 +1,18 @@
 import dash
 from dash import html, dcc, callback, Input, Output
 from ..components import PageTabsAIO
-from ..components.qc_subpages import upload_page_layout, line_plot_layout, bar_plot_layout
+# from ..components.qc_subpages import upload_page_layout, line_plot_layout, bar_plot_layout
 
 # Placeholder rendering function
 def render():
-    return html.Div('Returned')
+    return html.Div('Limited version of Tempo-Portal')
 
 
 # Subpages are fed in a list of dictionaries with keys: Subpage Name, Subpage address and Subpage rendering function
 subpages = [
-    {'name': 'Upload Data', 'address': 'upload', 'function':upload_page_layout},
-    {'name': 'Line Plot', 'address': 'lineplot', 'function':line_plot_layout},
-    {'name': 'Bar Plot', 'address':'barplot', 'function': bar_plot_layout},
+    {'name': 'Upload Data', 'address': 'upload', 'function':render},
+    {'name': 'Line Plot', 'address': 'lineplot', 'function':render},
+    {'name': 'Bar Plot', 'address':'barplot', 'function': render},
     {'name': 'HeatMap', 'address': 'heatmap', 'function':render},
     ]
 

@@ -18,7 +18,7 @@ path = '/differential_expression'
 dash.register_page(__name__, path=path, name='Differential Expression', order='d', image='images/icons/differential_expression_icon.png', description=subpages)
 
 layout = html.Div(
-    dcc.Markdown('# DIFFERENTIAL EXPRESSION')
+    dcc.Markdown('# DIFFERENTIAL EXPRESSION - Limited Version of TempoPortal')
 )
 
 # The keyword argument sub captures which subpage is selected from the url string eg /sample_sheet?sub=xxx, so that the layout function can render the correct subpage

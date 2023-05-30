@@ -14,7 +14,7 @@ dash.register_page(__name__, path='/', name='Homepage', image='images/icons/home
 
 #instead of returning things, we just declare the layout
 layout = html.Div(
-    [dcc.Markdown('# HOMEPAGE'),
+    [dcc.Markdown('# HOMEPAGE - Limited version of TempoPortal'),
     # html.Div('Hello there',
     # style={
     #     'height':'300px',
