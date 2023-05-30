@@ -1,0 +1,668 @@
+/* BioSpyder fonts */
+@font-face {
+    font-family: segoe-regular;
+    src: url('../fonts/Segoe/segoe_regular.ttf');
+}
+
+@font-face {
+    font-family: segoe-bold-header;
+    src: url('../fonts/Segoe/segoe_bold.ttf');
+}
+
+@font-face {
+    font-family: segoe-regular-bold;
+    src: url('../fonts/Segoe/segui_semibold.ttf');
+}
+
+/* --------- */
+
+
+/* Variables */
+:root{
+    /* Biospyder colours and fonts */
+    --green: rgb(0, 150, 57);
+    --lime: rgb(151, 215, 0);
+    --gold: rgb(219, 228, 66);
+    --gray: rgb(151, 153, 155);
+
+    --normal-font: segoe-regular;
+    --normal-font-bold: segoe-regular-bold;
+    --header-font: segoe-bold-header;
+    /*  -------------  */
+    /* Generic  constants*/
+    --primary-text: #000;
+    --secondary-text: #111;
+    --tertiary-text:#222;
+    --primary-text-reverse: #fffcfc;
+    --primary-background: #333;
+    --secondary-background: #444;
+    --tertiary-background: #555;
+    /* ------------------ */
+
+    /* Header constant */
+    --header-height: 4vh;
+    --header-background: var(--secondary-text);
+
+    /* Sidebar Constant */
+    --sidebar-background: rgb(50, 50, 255);
+    --sidebar-main-label-background: rgb(130, 130, 239);
+    --sidebar-main-label-text: white;
+    --sidebar-sub-label-div-background: rgb(50, 50, 255);
+    --sidebar-sub-label-background: white;
+    --sidebar-sub-label-text: navy;
+
+    /* Generic div wrappers */
+    --generic-card-div-background: rgb(194, 243, 249);
+    --generic-input-div-background: rgb(97, 210, 216);
+    --generic-label-div-background: rgb(234, 253, 255);
+
+
+
+    /* Specific colors */
+    --main-div-background: lightgreen;
+
+
+}  
+
+
+*{
+    transition: all 0.2s;
+}
+
+/* Overwrite some pre-defined margins */
+html{
+    height: 100%;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    /* width: 100%; */
+    padding: 0;
+    overflow: overlay;
+    height: fit-content;
+    margin: 0px;
+}
+
+p{
+    margin: 0;
+}
+
+#mainDiv{
+    background-color: var(--main-div-background); /* REMOVE THIS Colouring; THIS IS JUST FOR DEBUGGING*/
+    width: 100%;
+}
+
+
+
+#pageHeader{
+    height: var(--header-height);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--header-background);
+    color: var(--primary-text-reverse);
+    display: flex;
+    align-items: center;
+    padding: 0 3rem;
+    /* Page header styling */
+    justify-content: space-between;
+    z-index: 1;
+}
+
+
+
+#sidebarDiv{
+    /* background-color: red; */
+    position:fixed;
+    top: var(--header-height);
+    left: 0;
+    bottom: 0;
+    /* Width in line for callback */
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 100%;
+    background-color: var(--sidebar-background);
+    /* overflow-wrap: normal; */
+}
+
+/* Hide scrollbar from sidebar */
+#sidebarDiv::-webkit-scrollbar {
+  width: 0;
+  background-color: transparent;
+}
+
+#sidebarDiv::-webkit-scrollbar-thumb {
+  background-color: transparent;
+}
+
+#sidebarDiv::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+
+#contentDiv{
+    margin-top: var(--header-height);
+    background-color: var(--main-div-background);
+    min-height: calc(100vh - var(--header-height));
+    /* overflow: overlay; */
+    /* Padding is set in line as it's toggled by callback */
+}
+
+
+
+/* This all is for the fancy X that collapses the sidebar */
+.spinner-master * {
+    transition: all 0.3s;
+    box-sizing: border-box;
+
+}
+/* CONTROL THE POSITION OF IT */
+.spinner-master {
+    position: relative;
+    margin: auto;
+    height: 2.3rem;
+    width: 2.3rem;    
+}
+
+/* This adds margin bottom if the div is collapsed, so that it doesn't overlap with the labels */
+.spinner-master:has(div.unchecked){
+    margin-bottom: 2.5rem;
+}
+
+
+
+.spinner-master input[type=checkbox] {
+    display: none;
+}
+.spinner-master label {
+    cursor: pointer;
+    position: absolute;
+    z-index: 99;
+    height: 100%;
+    width: 100%;
+    top: 1rem;
+    left: 0;
+}
+.spinner-master .spinner2 {
+    position: absolute;
+    height: 0.5rem;
+    width: 100%;
+   background-color: #eee;
+   box-shadow: 0 0.3rem 0 rgba(0, 0, 0, 0.1);
+}
+.spinner-master .diagonal.part-1 {
+    position: relative;
+    float: left;
+}
+.spinner-master .horizontal {
+    position: relative;
+    float: left;
+    margin-top: 0.7rem;
+}
+.spinner-master .diagonal.part-2 {
+    position: relative;
+    float: left;
+    margin-top: 0.6rem;
+}
+
+.spinner-master div.checked .spinner-spin2 > .horizontal {
+    opacity: 0;
+}
+.spinner-master div.checked .spinner-spin2 > .diagonal.part-1 {
+    transform: rotate(135deg);
+    margin-top: 1rem;
+}
+.spinner-master div.checked .spinner-spin2 > .diagonal.part-2 {
+    transform: rotate(-135deg);
+    margin-top: -1.6rem;
+}
+/* END CSS FOR FANCY COLLAPSE BUTTON */
+
+/* This controls the position of the collapsing button depending on if the sidebar is collapsed or not */
+div.checked{   
+    position:relative;
+    top: -1vh;
+    right: -6.5vw;
+}
+/* ----- */
+
+
+/* This controls what to display in the sidebar depending on if it's collapsed or not */
+/* div.checkedDiv{
+
+
+}
+
+div.uncheckedDiv{
+
+} */
+
+
+/* Add media query so that when the screen is small unchecked becomes checked or something */
+/* ----- */
+
+
+
+
+
+
+
+
+
+
+/* Styling for the SidebarLabel */
+
+/* General */
+.sidebarMainLabel{
+    background-color: var(--sidebar-main-label-background);
+    width: 80%;
+    margin: 3% auto;
+    align-items: center;
+    box-shadow: 0 0.8rem 1.6rem rgba(0,0,0,0.2);
+    transition:0.3s;
+    border-radius: 2rem;
+    max-height: fit-content;
+    padding: 0.8rem 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    
+}
+
+
+
+/* reformat links so that they're not so ugly */
+.sidebarLabelLink{
+    text-decoration: none;
+    color: var(--sidebar-main-label-text);
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+/* On hover display sublink */
+.sidebarMainLabel:hover .sidebarSublinkDiv{
+    display: block;
+}
+/* don't like this solution */
+
+
+.sidebarSublinkDiv{
+    background-color: var(--sidebar-sub-label-div-background);
+    display: none;                                    
+    /* !!!!!!!!!!!!!!!!!! */
+    border-radius: 1vh;
+    width: 95%;
+}
+
+.sidebarSubLinkLabel{
+    background-color: var(--sidebar-sub-label-background);
+    padding: 1.2vh 1vh 1vh 1vh;
+    border-radius: 2vh;
+    margin: 0.5vh 1vh 0.5vh 1vh;
+    /* padding-bottom: 1; */
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+
+/* Link inside sub link div */
+.sidebarSubLinkLabel a{
+    text-decoration: none;
+    color: var(--sidebar-sub-label-text);
+}
+
+
+
+.sidebarLabelIcon{
+    padding: 0.5rem;
+}
+
+/* ---------------- */
+
+/*  Handle text disappear when sidebar is collapsed */
+.uncheckedDiv div a p{
+    display: none;
+}
+
+/* Handle labels when sidebar is collapsed */
+.uncheckedDiv div{
+    align-items: center;
+    justify-content: center;
+    /* padding: 0.5rem; */
+    /* margin: 10% auto; */
+    margin: 0.5rem auto;
+    width: 70%;
+    /* padding-bottom: 0rem; */
+}
+
+/* Handle permanently hide subpages when collapsed */
+.uncheckedDiv .sidebarMainLabel .sidebarSublinkDiv{
+    display: none !important;
+}
+
+/* ------- */
+
+/* Standard background for pages */
+.mainDivPageGeneric{
+    background-color: var(--main-div-background);
+    height: inherit;    
+    max-width: 100%;
+    padding: 1%;
+    padding-top: 3rem;
+
+}
+
+
+/* #mainDiv{
+    min-height: calc(100vh - var(--header-height));
+} */
+
+
+/* Inherit width for all divs */
+/* #mainPageDiv, */
+#contentDiv > div, 
+#contentDiv > div > div#_pages_content,
+#contentDiv > div > div > div.mainDivPageGeneric{
+    min-height: inherit;
+}
+ 
+
+
+
+/* Generic card div styling (genericCardWrapper) */
+.genericCardDiv{
+    width: 80%;
+    background-color: var(--generic-card-div-background);
+    /* margin: auto; */
+    align-items: center;
+    box-shadow: 0 0.8rem 1.6rem rgba(0,0,0,0.2);
+    transition:0.3s;
+    border-radius: 5rem;
+    max-height: fit-content;
+    padding: 3rem;
+    min-height: 10rem;
+    margin: 1rem auto;
+}
+
+
+
+/* Collapsable card div styling (CollapsableCardWrapperAIO), very similar to above */
+.collapsableCardWrapperDiv{
+    background-color: var(--generic-card-div-background);
+    /* background-color: pink;  */
+    /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! REMOVE*/
+    width: 90%;
+    align-items: center;
+    box-shadow: 0 0.8rem 1.6rem rgba(0,0,0,0.2);
+    transition:0.3s;
+    border-radius: 5rem;
+    max-height: fit-content;
+    padding: 3rem;
+    min-height: 10rem;
+    margin: 1rem auto;
+}
+
+
+
+
+.collapsableCardWrapperDivCollapseBtn img{
+    background-repeat: no-repeat;
+    width: 2rem;
+    height: 2rem;
+    background-size:auto;
+    border: 0;
+    transform: rotate(0deg);
+}
+
+/* Handle container div collapse */
+.collapsableCardWrapperDivCollapseBtn img:hover{
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+/* for collapsed */
+.collapsableCardWrapperDivCollapseBtn.collapsed img{
+    transform: rotate(270deg);
+}
+
+/* Collapsing container */
+.collapsableCardWrapperDivCollapseSection{
+    display: block;
+    margin-top: -3rem;
+
+}
+
+/* For when it's collapsed */
+div.collapsableCardWrapperDivCollapseSection.collapsed{
+    display:none;
+}
+
+/* Reduce div dimension when collapsed */
+.collapsableCardWrapperDiv:has(div.collapsableCardWrapperDivCollapseSection.collapsed){
+    min-height: 0rem;
+    max-height: 0rem;
+}
+
+
+
+/* Hide label when expanded */
+.collapsableCardWrapperLabel{
+    display: none;
+}
+
+.collapsableCardWrapperLabel.collapsed{
+    display: block;
+}
+
+/* Label div styling */
+.collapsableCardWrapperLabelDivWrapper{
+    display: flex; 
+    position: relative;
+    top:-1rem;
+
+}
+
+
+/* Handle button positioning and styling */
+.collapsableCardWrapperDivCollapseBtn{
+    text-decoration: none;
+    position: relative;
+    /* left: 80%; */
+    /* top: -1rem; */
+}
+
+
+
+/* -------------------------------------------------- */
+
+/* Generic input wrapper styling */
+.genericInputWrapper, .genericTextInputComponentAIO{
+    width: 90%;
+    background-color: var(--generic-input-div-background);
+    margin: 1% auto;
+    align-items: center;
+    box-shadow: 0 0.8rem 1.6rem rgba(0,0,0,0.2);
+    transition:0.3s;
+    border-radius: 1rem;
+    max-height: fit-content;
+    padding: 1rem 3rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.genericTextInputComponentAIO{
+    padding: 1rem;
+}
+
+
+
+/* THIS OVERWRITES THE BASE STYLE CSS  */
+.row{
+    /* background-color: red; */
+    justify-content: space-evenly;
+    display: flex;
+    margin: 1rem auto;
+}
+.row > div{
+    width: 100%;
+}
+/*  */
+
+
+
+/* Handle different button sizing */
+.SubmitButtonComponentAIOButtonMedium{
+    min-width: fit-content;
+    width: 20rem;
+    /* height: 3rem; */
+    font-size: 2rem;
+    border-radius: 1rem;
+    padding: 0.5rem;
+    margin: 0.8rem;
+}
+
+.SubmitButtonComponentAIOButtonSmall{
+    border-radius: 1rem;
+    min-width: 10rem;
+    padding: 0.2rem;
+}
+
+.SubmitButtonComponentAIOButtonLarge{
+    min-width: fit-content;
+    width: 30rem;
+    /* height: 5rem; */
+    border-radius: 1rem;
+    font-size: 3.5rem;
+    padding: 1rem;
+}
+
+
+
+
+
+/* Handle grid layout for the clickable grid in sample sheet template download */
+.containerTenByTen {
+    display: grid; 
+    grid-auto-flow: row; 
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr; 
+    grid-template-rows: 1fr 1fr; 
+    gap: 0.6% 0.3%; 
+    height: 26.5vw;
+    /* background-color: rgba(211, 211, 211, 0.971); */
+    border: 0.3rem solid rgba(0, 0, 0, 0.532);
+    border-radius: 0.9rem;
+    padding: 0.1rem;
+    box-shadow: 0 0.2rem 0.8rem rgba(0,0,0,0.2);
+
+}
+
+/* Styling of clickable template buttons (which are actually divs) */
+.clickableBox{
+    cursor: pointer;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 0.3rem solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+
+}
+
+
+/* Handle background colour based on class */
+.active{
+    background-color: lightgreen;
+    font-weight: bold;
+}
+
+.inactive{
+    background-color: lightgray;
+}
+
+.deactivated{
+    background-color: black;
+    color: white;
+    cursor: default;
+}
+
+/* -------------------------------- */
+
+
+/* Class for generic flexbox-type styling */
+.flexer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: auto;
+}
+
+.flexer > *{
+    margin: 0.8rem;
+
+}
+
+/* Class to contain loading elements */
+.contain-spinner{
+    
+    background-color: red;
+    /* display: inline-flex; */
+    justify-content: center;
+    width: 100%;
+    margin: auto;
+    height: max-content;
+    display: none;
+}
+
+/* Check if loading element is in, if it is display inline-flex (otherwise the display is none so it doesn't take unnecessary space) */
+.contain-spinner:has(div.dash-spinner){
+    display: inline-flex;
+}
+
+/* -------------------------------- */
+
+
+
+
+
+
+
+
+/* -------------------------- */
+
+
+
+
+.label:not(:empty){
+    background-color: var(--generic-label-div-background);
+    margin: auto;
+    text-align: center;
+    border-style: solid;
+    border-color: #000;
+    width: 75%;
+    border-width: 0.3rem;
+    border-radius: 1rem;
+    padding: 1rem;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+.warning{
+    background-color: rgb(255, 69, 69) !important;
+    font-weight: 600 !important;
+
+}
+
+
+
+
+
+
+
+/* Styling of table in aligner page */
+#table_pick_files_aligner > div{
+    width: 100%;
+}
+
