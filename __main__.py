@@ -24,7 +24,7 @@ def create_dash_application(flask_app, local=False):
             server=flask_app,
             # Base pathname
             name='DashApp',
-            assets_folder='dash_app/assets',
+            assets_folder='assets',
             url_base_pathname='/app/',
             use_pages=True, 
             pages_folder='dash_app/utils', 
