@@ -61,12 +61,12 @@ class User(db.Model, UserMixin):
 
 # Class for logging in
 class LoginForm(FlaskForm):
-    email = StringField('email', validators=[Email()])
+    email = StringField('email', validators=[Length(min=5)])
     password = PasswordField('password', validators=[Length(min=5)])
 
 # Class for registering a user
 class RegisterForm(FlaskForm):
-    email = StringField('email', validators=[Email()])
+    email = StringField('email', validators=[Length(min=5)])
     password = PasswordField('password', validators=[Length(min=5)])
     repeat_password = PasswordField('repeat_password', validators=[Length(min=5)])
 
