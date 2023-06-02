@@ -158,17 +158,18 @@ def layout(sub=None):
             # Output here if there are any issues (maybe wrap in card or something)
 
             genericInputWrapper([
-                'Download Sample Sheet for instrument ', 
+                'Download Sample Sheet with ', 
                 # This is ugly, find a way for the dropdown not to extend the page
-                dcc.Dropdown(machineries, 
+                dcc.Dropdown(['Forward', 'Reverse'], 
                 style={'width': '190px'}, 
                 id='dropdown_machinery',
                 clearable=False,
                 # This determines the max height the dropdown assumes once expanded, useful so doesn't overlow the page
-                maxHeight=130,
+                #maxHeight=130,
                 # This option is the height for the dropdown labels (required to be more as these are on 2 lines)
-                optionHeight=50),
-                'in the ',
+                #optionHeight=50
+                ),
+                'primer strand, in the ',
                 dcc.Dropdown(['Classic', 'Extended'],
                 style={'width': '100px'},
                 id='dropdown_version',
@@ -440,14 +441,16 @@ def return_table(data, value, style): #,current_options
 
     prevent_initial_call=True,
 )
-def handle_download_sample_sheet(click, store, machinery,selection):
+def handle_download_sample_sheet(click, store, strand, selection):
 
     # Return none if the store is null
-    if store == None or machinery == None or selection == None:
+    if store == None or strand == None or selection == None:
         return None
 
-    # Change machinery selection format
-    machinery = '_'.join([x.lower() for x in machinery.split(' ')]) if machinery != None else machinery
+    # Change strand selection format
+    strand = False if strand == 'Forward' else True
+
+    # MACHINERY BECOMES FORWARD/REVERSE (false, true)
 
     # Change selection format
     complete = True if selection == 'Extended' else False
@@ -467,7 +470,7 @@ def handle_download_sample_sheet(click, store, machinery,selection):
     project, experiment, comments = metadata['project_name'], metadata['experiment_name'], metadata['comments']
 
     # Call wrapper function
-    filename, text = wrapper_create_complete_sample_sheet(tables_dict, complete, machinery, project, experiment, comments)
+    filename, text = wrapper_create_complete_sample_sheet(tables_dict, complete, strand, project, experiment, comments)
 
 
     return {'content':text, 'filename':filename}

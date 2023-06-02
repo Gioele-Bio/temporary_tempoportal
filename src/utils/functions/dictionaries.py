@@ -496,9 +496,8 @@ def make_nextseq_header(project_name, experiment_name, comments):
 
 
 
-def make_generic_header(project, experiment, comments, machinery):
+def make_generic_header(project, experiment, comments):
     date = datetime.today().strftime('%m/%d/%Y')
-    machinery_string = ' '.join([x.capitalize() for x in machinery.split('_')])
     text = f"""[Header],,,,,,,,,,
 "IEMFileVersion","4",,,,,,,,,
 "Investigator","BioSpyder",,,,,,,,,
@@ -508,7 +507,7 @@ def make_generic_header(project, experiment, comments, machinery):
 "Workflow","GenerateFASTQ",,,,,,,,,
 "Application","FASTQ only",,,,,,,,,
 "Assay","Nextera",,,,,,,,,
-"Description","{machinery_string}",,,,,,,,,
+"Description",,,,,,,,,,
 "Chemistry","Amplicon",,,,,,,,,
 "Additional Comments","{comments}",,,,,,,,,
 [Manifests],,,,,,,,,,

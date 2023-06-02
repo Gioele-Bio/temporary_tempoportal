@@ -118,6 +118,34 @@ def stack_data_frames(dfs):
     return pd.concat([df for df in dfs]).reset_index(drop=True)
 
 
+
+####### OLD FUNCTION FOR REFERENCE -------------------------------------------
+
+# Migrate sample name + helper
+# Helper function supporting migrate_sample_name(), compares well position
+# def compare_rows(complete, user):
+#     traslated_dict = user.T.to_dict()
+#     traslated_arr_of_dict = [traslated_dict[x] for x in range(len(traslated_dict))]
+
+#     # Get from complete DF well name the plate flavor and well position
+#     p, flavour, well = complete.strip('_').split('_')
+#     plate = f'{p}_{flavour}'
+
+#     #Make case 
+#     match = False
+#     name = None
+
+#     for row in traslated_arr_of_dict:
+#         if row['Sample_Well'] == well and row['Sample_Plate'] == plate:
+#             match = True
+#             name = row['Sample_Name']
+       
+#     return name if match else complete
+
+####### ---------------------------------------------------------------------
+
+
+
 # Migrate sample name + helper
 # Helper function supporting migrate_sample_name(), compares well position and maps it to the user's sample (if any)
 def compare_rows(complete, user):
@@ -358,18 +386,18 @@ def wrapper_handle_upload(content, filename):
 
 
 # Wrapper create complete sample sheet!!
-def wrapper_create_complete_sample_sheet(tables, complete, machinery, project, experiment, comments):
+def wrapper_create_complete_sample_sheet(tables, complete, reverse_complement, project, experiment, comments):
     # Declare list of machineries based on required I5 index
-    possible_machinery_selection_forward_strand = ['mini_seq_standard_reagent', 'mi_seq', 'hi_seq_2500', 'hi_seq_2000','nova_seq_6000_v1.5']
-    possible_machinery_selection_reverse_strand = ['iSeq', 'next_seq_system', 'hi_seq_x', 'hi_seq_4000', 'hi_seq_3000', 'mini_seq_rapid_reagent', 'nova_seq_6000_v1.0']
+    # possible_machinery_selection_forward_strand = ['mini_seq_standard_reagent', 'mi_seq', 'hi_seq_2500', 'hi_seq_2000','nova_seq_6000_v1.5']
+    # possible_machinery_selection_reverse_strand = ['iSeq', 'next_seq_system', 'hi_seq_x', 'hi_seq_4000', 'hi_seq_3000', 'mini_seq_rapid_reagent', 'nova_seq_6000_v1.0']
 
-    #Determine if the reverse complement is required!
-    if machinery in possible_machinery_selection_forward_strand:
-        reverse_complement = False
-    elif machinery in possible_machinery_selection_reverse_strand:
-        reverse_complement = True
-    else:
-        raise Exception('Machinery not recognised!')
+    # #Determine if the reverse complement is required!
+    # if machinery in possible_machinery_selection_forward_strand:
+    #     reverse_complement = False
+    # elif machinery in possible_machinery_selection_reverse_strand:
+    #     reverse_complement = True
+    # else:
+    #     raise Exception('Machinery not recognised!')
     
 
     # Handle the presence of 24/48 plates
@@ -383,7 +411,7 @@ def wrapper_create_complete_sample_sheet(tables, complete, machinery, project, e
         del tables['Plate_48']
     
     # Make header from standard one
-    header = make_generic_header(project, experiment, comments, machinery)
+    header = make_generic_header(project, experiment, comments, )
 
     # Get body of sample sheet
     sample_sheet_body = get_sample_sheet_body(tables, complete)
