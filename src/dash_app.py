@@ -13,7 +13,7 @@ def create_dash_application(flask_app, local=False):
         import dash_auth
 
         VALID_USERNAME_PASSWORD_PAIRS = {
-            'hello': 'world'
+            'admin@biospyder.com': 'carlsclyde2017'
         }
 
 

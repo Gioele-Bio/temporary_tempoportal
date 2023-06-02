@@ -41,25 +41,25 @@
 
     /* Header constant */
     --header-height: 4vh;
-    --header-background: var(--secondary-text);
+    --header-background: #555;
 
     /* Sidebar Constant */
-    --sidebar-background: rgb(50, 50, 255);
-    --sidebar-main-label-background: rgb(130, 130, 239);
-    --sidebar-main-label-text: white;
-    --sidebar-sub-label-div-background: rgb(50, 50, 255);
+    --sidebar-background: #C4DFDF;
+    --sidebar-main-label-background: #C4DFDF;
+    --sidebar-main-label-text: black;
+    --sidebar-sub-label-div-background: #F8F6F4;
     --sidebar-sub-label-background: white;
-    --sidebar-sub-label-text: navy;
+    --sidebar-sub-label-text: black;
 
     /* Generic div wrappers */
-    --generic-card-div-background: rgb(194, 243, 249);
-    --generic-input-div-background: rgb(97, 210, 216);
-    --generic-label-div-background: rgb(234, 253, 255);
+    --generic-card-div-background: #E3F4F4;
+    --generic-input-div-background: #C4DFDF;
+    --generic-label-div-background: #C4DFDF;
 
 
 
     /* Specific colors */
-    --main-div-background: lightgreen;
+    --main-div-background: #F8F6F4;
 
 
 }  
