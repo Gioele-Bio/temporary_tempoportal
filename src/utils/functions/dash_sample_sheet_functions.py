@@ -119,25 +119,17 @@ def stack_data_frames(dfs):
 
 
 # Migrate sample name + helper
-# Helper function supporting migrate_sample_name(), compares well position
+# Helper function supporting migrate_sample_name(), compares well position and maps it to the user's sample (if any)
 def compare_rows(complete, user):
-    traslated_dict = user.T.to_dict()
-    traslated_arr_of_dict = [traslated_dict[x] for x in range(len(traslated_dict))]
-
     # Get from complete DF well name the plate flavor and well position
     p, flavour, well = complete.strip('_').split('_')
     plate = f'{p}_{flavour}'
 
-    #Make case 
-    match = False
-    name = None
+    try:
+        return user[(user['Sample_Plate'] == plate) & (user['Sample_Well'] == well)]['Sample_Name'].values[0]
+    except:
+        return complete
 
-    for row in traslated_arr_of_dict:
-        if row['Sample_Well'] == well and row['Sample_Plate'] == plate:
-            match = True
-            name = row['Sample_Name']
-       
-    return name if match else complete
 
 
 # Migrate sample name
