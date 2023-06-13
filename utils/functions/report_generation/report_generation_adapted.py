@@ -17,6 +17,8 @@ from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
 import matplotlib.axes as ax
 import plotly.express as px
+import matplotlib
+matplotlib.pyplot.switch_backend('Agg') 
 
 # MDC api 
 import requests
@@ -533,7 +535,7 @@ def get_report(project, gene_count_files_list, mapped_unmapped_files_list, compa
     #  jinja2-like tags for inserting context variables into doc (key is tag in doc and value is var name)
     context = { 'project' : project, 
     'sample_type' : sample_type, 
-    'num_plates_slides' : num_plates_slides, 
+    'num_plates_slides' : num_plates_slides or '1', 
     'samples_received_date' : reformat_date,
     'num_samples_rec' : num_samples_rec,
     'num_samples_proc' : num_samples_proc,
