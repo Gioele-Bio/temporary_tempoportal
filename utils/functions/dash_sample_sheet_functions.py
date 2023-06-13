@@ -154,6 +154,7 @@ def compare_rows(complete, user):
     plate = f'{p}_{flavour}'
 
     try:
+        # Basically you're extracting what the flavour and well are from the 'complete' string, then comparing it to the user DF to substitute it there! If none, return whatever the original string was
         return user[(user['Sample_Plate'] == plate) & (user['Sample_Well'] == well)]['Sample_Name'].values[0]
     except:
         return complete
@@ -185,11 +186,17 @@ def get_sample_sheet_body(tables, complete):
     # Get complete sample sheet from string
     complete_sample_sheet = pd.read_csv(StringIO(complete_sample_sheet_string), index_col=0)
 
-    # Map sample names based on well position
+    # Map sample names based on well position (doesn't start if there are none)
     mapped_sheets = [map_sample_to_well(table, flavour) for flavour, table in tables.items()]
 
-    # Concatenate sample sheets
-    user_sample_sheet = stack_data_frames(mapped_sheets)
+    # Handle if only 24/48 well plate was uploaded!! eg. you don't get any tables here!
+    if len(tables) == 0:
+        user_sample_sheet = pd.DataFrame(columns=['Sample_Name', 'Sample_Well', 'Sample_Plate'])
+    else:
+        # Concatenate sample sheets if any!
+        user_sample_sheet = stack_data_frames(mapped_sheets)
+
+    print(user_sample_sheet)
 
     # Now iterate through the large manifest/sample sheet data frame and substitute sample names with user's sample names if well and plate position matches
     complete_sample_sheet_to_return = migrate_sample_name(complete_sample_sheet, user_sample_sheet)
