@@ -360,7 +360,7 @@ def wrapper_handle_upload(content, filename):
     # Handle file
     content_type, content_string = content.split(',')
     decoded_content = b64decode(content_string)
-    file_content = StringIO(decoded_content.decode('utf-8')).readlines()
+    file_content = StringIO(decoded_content.decode('utf-8-sig')).readlines()
 
     # Only for debug
     # file_content = content
